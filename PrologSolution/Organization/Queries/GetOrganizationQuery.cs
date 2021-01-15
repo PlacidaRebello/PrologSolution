@@ -1,14 +1,10 @@
 ﻿using AutoMapper;
 using MediatR;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using PrologSolution.Data;
 using PrologSolution.Data.Entities;
-using System.Threading;
 
 namespace PrologSolution.Organization.Queries
 {
@@ -29,40 +25,51 @@ namespace PrologSolution.Organization.Queries
 
         public async Task<IEnumerable<OrganizationViewModel>> Handle(GetOrganizationQuery request, CancellationToken cancellationToken)
         {
-
             var response = new List<OrganizationViewModel>();
-            var phonesList=new List<Phone>();
-            var usersList= new List<User>();
+            var phonesList = new List<List<Phone>>();
             var organizationList = await _service.GetOrganizationList();
             foreach (var organization in organizationList)
             {
-                var a = new OrganizationViewModel();
+                int blackList = 0;
+                int totalCount = 0;
+                var organizationViewModel = new OrganizationViewModel();
                 var organizationId = organization.Id;
-                a.Id = organizationId;
-                a.Name = organization.Name;
+                organizationViewModel.Id = organizationId;
+                organizationViewModel.Name = organization.Name;
                 
-                usersList = await _service.GetUsersList(organizationId: organizationId);
+                organizationViewModel.Users = new List<UsersViewModel>();
+                var userList = await _service.GetUsersList(organization.Id);
 
-                if(usersList != null)
+                foreach (var user in userList)
                 {
-                    //Parallel.ForEach(usersList, i => DoSomething(i.Id).Wait());
-                    foreach (var user in usersList)
+                    var uvm = new UsersViewModel
                     {
-                        var userId = user.Id;
-                        var datausers = new UsersViewModel();
-                        datausers.Id = user.Id;
-                        datausers.Email = user.Email;
-                        a.Users = new List<UsersViewModel>();
-                        a.Users.Add(datausers);
-                        phonesList = await _service.GetPhonesList(organizationId: organizationId, userId: userId);
+                        Email = user.Email,
+                        Id = user.Id
+                    };
+
+                    Thread.Sleep(2500);
+                    var ph = await _service.GetPhonesList(user.OrganizationId, user.Id);
+
+                    phonesList.Add(ph);
+                    int phoneCount = 0;
+                    foreach (var p in ph)
+                    {
+                        phoneCount++;
+                        totalCount++;
+                        if (p.Blacklist)
+                            blackList++;
                     }
+                    uvm.PhoneCount = phoneCount;
+                    organizationViewModel.BlackListTotal = blackList;
+                    organizationViewModel.Users.Add(uvm);
                 }
-                response.Add(a);
+                organizationViewModel.TotalCount = totalCount;
+                response.Add(organizationViewModel);
             }
-
             var viewModel = _mapper.Map<IEnumerable<OrganizationViewModel>>(response);
-
             return await Task.FromResult(viewModel);
         }
+
     }
 }
