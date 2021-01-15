@@ -7,6 +7,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PrologSolution.Data;
+using PrologSolution.Data.Entities;
+using System.Threading;
 
 namespace PrologSolution.Organization.Queries
 {
@@ -27,8 +29,37 @@ namespace PrologSolution.Organization.Queries
 
         public async Task<IEnumerable<OrganizationViewModel>> Handle(GetOrganizationQuery request, CancellationToken cancellationToken)
         {
-            var data = await _service.GetPhonesList(organizationId:1, userId:1);
+
             var response = new List<OrganizationViewModel>();
+            var phonesList=new List<Phone>();
+            var usersList= new List<User>();
+            var organizationList = await _service.GetOrganizationList();
+            foreach (var organization in organizationList)
+            {
+                var a = new OrganizationViewModel();
+                var organizationId = organization.Id;
+                a.Id = organizationId;
+                a.Name = organization.Name;
+                
+                usersList = await _service.GetUsersList(organizationId: organizationId);
+
+                if(usersList != null)
+                {
+                    //Parallel.ForEach(usersList, i => DoSomething(i.Id).Wait());
+                    foreach (var user in usersList)
+                    {
+                        var userId = user.Id;
+                        var datausers = new UsersViewModel();
+                        datausers.Id = user.Id;
+                        datausers.Email = user.Email;
+                        a.Users = new List<UsersViewModel>();
+                        a.Users.Add(datausers);
+                        phonesList = await _service.GetPhonesList(organizationId: organizationId, userId: userId);
+                    }
+                }
+                response.Add(a);
+            }
+
             var viewModel = _mapper.Map<IEnumerable<OrganizationViewModel>>(response);
 
             return await Task.FromResult(viewModel);
