@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PrologSolution.Organization.Queries;
 
@@ -10,12 +7,12 @@ namespace PrologSolution.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class OrganizationController : ControllerBase
+    public class OrganizationController : ApiController
     {
         [HttpGet]
-        public IEnumerable<OrganizationViewModel> Get()
+        public async Task<IEnumerable<OrganizationViewModel>> Get()
         {
-            return new List<OrganizationViewModel>();
+            return await Mediator.Send(new GetOrganizationQuery());
         }
     }
 }
