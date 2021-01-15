@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PrologSolution.Data
+﻿namespace PrologSolution.Data.Entities
 {
     public class Phone
     {
