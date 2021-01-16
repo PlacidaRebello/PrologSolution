@@ -1,5 +1,4 @@
 using System.Reflection;
-using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -24,9 +23,8 @@ namespace PrologSolution
         {
             services.AddControllers();
             services.AddSwaggerGen();
-            services.AddAutoMapper(typeof(Startup));
             services.AddMediatR(Assembly.GetExecutingAssembly());
-
+            services.AddResponseCaching();
             //Dependency Injections
             services.AddTransient<IOrganizationService, OrganizationService>();
         }
@@ -47,6 +45,8 @@ namespace PrologSolution
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseResponseCaching();
 
             app.UseAuthorization();
 
