@@ -5,6 +5,8 @@ VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrologSolution", "PrologSolution.csproj", "{68E3AE4C-2B9F-4CC2-BF7E-E645A9941E8E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrologTests", "..\PrologTests\PrologTests.csproj", "{93A1D859-20BB-44FE-9DEB-2E0F8B1729F4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{68E3AE4C-2B9F-4CC2-BF7E-E645A9941E8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{68E3AE4C-2B9F-4CC2-BF7E-E645A9941E8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{68E3AE4C-2B9F-4CC2-BF7E-E645A9941E8E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{93A1D859-20BB-44FE-9DEB-2E0F8B1729F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93A1D859-20BB-44FE-9DEB-2E0F8B1729F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93A1D859-20BB-44FE-9DEB-2E0F8B1729F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93A1D859-20BB-44FE-9DEB-2E0F8B1729F4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

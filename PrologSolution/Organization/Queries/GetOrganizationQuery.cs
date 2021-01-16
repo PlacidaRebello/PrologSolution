@@ -1,10 +1,8 @@
-﻿using AutoMapper;
-using MediatR;
+﻿using MediatR;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using PrologSolution.Data;
-using PrologSolution.Data.Entities;
 
 namespace PrologSolution.Organization.Queries
 {
@@ -14,12 +12,10 @@ namespace PrologSolution.Organization.Queries
     }
     public class GetOrganizationQueryHandler : IRequestHandler<GetOrganizationQuery, IEnumerable<OrganizationViewModel>>
     {
-        private readonly IMapper _mapper;
         private readonly IOrganizationService _service;
 
-        public GetOrganizationQueryHandler(IMapper mapper, IOrganizationService organizationService)
+        public GetOrganizationQueryHandler(IOrganizationService organizationService)
         {
-            _mapper = mapper;
             _service = organizationService;
         }
 
