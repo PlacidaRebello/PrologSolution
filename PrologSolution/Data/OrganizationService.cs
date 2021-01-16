@@ -1,8 +1,11 @@
-﻿using PrologSolution.Data.Entities;
+﻿using System;
+using PrologSolution.Data.Entities;
 using RestSharp;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace PrologSolution.Data
 {
@@ -23,6 +26,22 @@ namespace PrologSolution.Data
             var request = new RestRequest($"organizations/{organizationId}/users/{userId}/phones", Method.GET);
             var response = _client.Execute<List<Phone>>(request);
             return await Task.FromResult(response.Data);
+
+            //Comment out line 32-35 and Uncomment this to reveal the underlying Rate limiting error.
+            #region Reproduce Error "Response status code does not indicate success: 429 (Too Many Requests)"
+
+            //HttpClient _client = new HttpClient();
+            //using (HttpResponseMessage response = await _client.GetAsync(
+            //        $"https://5f0ddbee704cdf0016eaea16.mockapi.io/organizations/{organizationId}/users/{userId}/phones")
+            //    .ConfigureAwait(false))
+
+            //using (HttpContent content = response.Content)
+            //{
+            //    response.EnsureSuccessStatusCode();
+            //    string data = content.ReadAsStringAsync().Result;
+            //    return JsonConvert.DeserializeObject<List<Entities.Phone>>(data);
+            //}
+            #endregion
         }
 
         public async Task<List<User>> GetUsersList(string organizationId)
