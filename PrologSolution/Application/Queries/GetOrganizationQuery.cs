@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using PrologSolution.Data;
+using PrologSolution.Organization.Queries;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;

@@ -1,4 +1,4 @@
-﻿namespace PrologSolution.Application.Queries
+﻿namespace PrologSolution.Organization.Queries
 {
     public class UsersViewModel
     {

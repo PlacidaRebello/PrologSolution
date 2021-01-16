@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using PrologSolution.Organization.Queries;
+using System.Collections.Generic;
 
 namespace PrologSolution.Application.Queries
 {
