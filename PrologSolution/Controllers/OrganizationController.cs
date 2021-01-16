@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using PrologSolution.Application.Queries;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using PrologSolution.Organization.Queries;
 
 namespace PrologSolution.Controllers
 {

@@ -1,12 +1,12 @@
 ﻿using MediatR;
+using PrologSolution.Data;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PrologSolution.Data;
 
-namespace PrologSolution.Organization.Queries
+namespace PrologSolution.Application.Queries
 {
-    public class GetOrganizationQuery: IRequest<IEnumerable<OrganizationViewModel>>
+    public class GetOrganizationQuery : IRequest<IEnumerable<OrganizationViewModel>>
     {
 
     }

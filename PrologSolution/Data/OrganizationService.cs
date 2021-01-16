@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using PrologSolution.Data.Entities;
+using RestSharp;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using PrologSolution.Data.Entities;
-using RestSharp;
 
 namespace PrologSolution.Data
 {

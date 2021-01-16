@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 
-
-namespace PrologSolution.Organization.Queries
+namespace PrologSolution.Application.Queries
 {
     public class OrganizationViewModel
     {
