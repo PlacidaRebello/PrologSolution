@@ -26,18 +26,20 @@ namespace PrologSolution.Organization.Queries
         public async Task<IEnumerable<OrganizationViewModel>> Handle(GetOrganizationQuery request, CancellationToken cancellationToken)
         {
             var response = new List<OrganizationViewModel>();
-            var phonesList = new List<List<Phone>>();
+
             var organizationList = await _service.GetOrganizationList();
+
             foreach (var organization in organizationList)
             {
-                int blackList = 0;
-                int totalCount = 0;
-                var organizationViewModel = new OrganizationViewModel();
-                var organizationId = organization.Id;
-                organizationViewModel.Id = organizationId;
-                organizationViewModel.Name = organization.Name;
-                
-                organizationViewModel.Users = new List<UsersViewModel>();
+                var totalCount = 0;
+                var blackList = 0;
+                var organizationViewModel = new OrganizationViewModel
+                {
+                    Id = organization.Id,
+                    Name = organization.Name,
+                    Users = new List<UsersViewModel>()
+                };
+
                 var userList = await _service.GetUsersList(organization.Id);
 
                 foreach (var user in userList)
@@ -48,18 +50,17 @@ namespace PrologSolution.Organization.Queries
                         Id = user.Id
                     };
 
-                    Thread.Sleep(2500);
-                    var ph = await _service.GetPhonesList(user.OrganizationId, user.Id);
+                    var phoneList = await _service.GetPhonesList(user.OrganizationId, user.Id);
 
-                    phonesList.Add(ph);
-                    int phoneCount = 0;
-                    foreach (var p in ph)
+                    var phoneCount = 0;
+                    foreach (var phone in phoneList)
                     {
                         phoneCount++;
                         totalCount++;
-                        if (p.Blacklist)
+                        if (phone.Blacklist)
                             blackList++;
                     }
+
                     uvm.PhoneCount = phoneCount;
                     organizationViewModel.BlackListTotal = blackList;
                     organizationViewModel.Users.Add(uvm);
@@ -67,8 +68,7 @@ namespace PrologSolution.Organization.Queries
                 organizationViewModel.TotalCount = totalCount;
                 response.Add(organizationViewModel);
             }
-            var viewModel = _mapper.Map<IEnumerable<OrganizationViewModel>>(response);
-            return await Task.FromResult(viewModel);
+            return await Task.FromResult(response);
         }
 
     }

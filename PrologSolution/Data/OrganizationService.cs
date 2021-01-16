@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using PrologSolution.Data.Entities;
 using RestSharp;
@@ -18,6 +19,7 @@ namespace PrologSolution.Data
 
         public async Task<List<Phone>> GetPhonesList(string organizationId, string userId)
         {
+            Thread.Sleep(2000);
             var request = new RestRequest($"organizations/{organizationId}/users/{userId}/phones", Method.GET);
             var response = _client.Execute<List<Phone>>(request);
             return await Task.FromResult(response.Data);

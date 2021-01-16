@@ -10,6 +10,7 @@ namespace PrologSolution.Controllers
     public class OrganizationController : ApiController
     {
         [HttpGet]
+        [ResponseCache(Duration = 60)]
         public async Task<IEnumerable<OrganizationViewModel>> Get()
         {
             return await Mediator.Send(new GetOrganizationQuery());
