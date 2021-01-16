@@ -28,6 +28,7 @@ namespace PrologSolution.Data
             return await Task.FromResult(response.Data);
 
             //Comment out line 32-35 and Uncomment this to reveal the underlying Rate limiting error.
+            //This error is likely caused by Rate limit set by the API. Need documentation to make batch requests if possible.
             #region Reproduce Error "Response status code does not indicate success: 429 (Too Many Requests)"
 
             //HttpClient _client = new HttpClient();
