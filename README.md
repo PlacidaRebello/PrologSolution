@@ -1,6 +1,4 @@
 # PrologSolution
-# PrologSolution
-<!—ABOUT THE PROJECT -->
 ### Tools and Frameworks
 * .Net 3.1- As it provides LTS.
 * MediatR + CQRS - To decouple the API layer and Application Layer. Helps apply Single Responsibility principle
